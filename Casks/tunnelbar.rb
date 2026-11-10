@@ -1,0 +1,37 @@
+# Rendered by .github/workflows/release.yml and pushed to github.com/gduprez/homebrew-tap.
+cask "tunnelbar" do
+  version "0.3.0"
+  sha256 "c981241e69b10bd9189ef4fde557214d1926ae880ec0e60202cbd5a7b4e094ad"
+
+  url "https://github.com/gduprez/tunnelbar/releases/download/v#{version}/TunnelBar_#{version}_universal.dmg"
+  name "TunnelBar"
+  desc "Menu bar app to start, stop and monitor SSH tunnels"
+  homepage "https://github.com/gduprez/tunnelbar"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  depends_on macos: :ventura
+
+  app "TunnelBar.app"
+
+  # TunnelBar is not notarized yet (no Apple Developer ID): installing from this tap
+  # means trusting it, so Gatekeeper's download quarantine is lifted.
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/TunnelBar.app"]
+  end
+
+  uninstall quit: "io.github.gduprez.tunnelbar"
+
+  zap trash: [
+    "~/Library/Application Support/TunnelBar",
+    "~/Library/Logs/io.github.gduprez.tunnelbar",
+  ]
+
+  caveats <<~EOS
+    TunnelBar is not notarized by Apple. This cask removes the download quarantine
+    so that macOS lets it start. See https://github.com/gduprez/tunnelbar#install
+  EOS
+end
