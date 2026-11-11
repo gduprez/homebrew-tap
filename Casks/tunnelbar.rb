@@ -1,7 +1,7 @@
 # Rendered by .github/workflows/release.yml and pushed to github.com/gduprez/homebrew-tap.
 cask "tunnelbar" do
-  version "0.3.0"
-  sha256 "c981241e69b10bd9189ef4fde557214d1926ae880ec0e60202cbd5a7b4e094ad"
+  version "0.3.1"
+  sha256 "6e4927ca4c83b0031bcd3beea9494d43e96bc8be633af793a88a43118f933502"
 
   url "https://github.com/gduprez/tunnelbar/releases/download/v#{version}/TunnelBar_#{version}_universal.dmg"
   name "TunnelBar"
